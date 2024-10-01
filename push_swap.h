@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/01 14:48:14 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/01 16:30:33 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ void free_error(t_stack **a);
 void ft_sa(t_stack **a);
 void ft_sb(t_stack **b);
 void ft_ss(t_stack **a, t_stack **b);
+
+void pa(t_stack **a, t_stack **b);
+void pb(t_stack **a, t_stack **b);
+
+void ra(t_stack **a);
+void rb(t_stack **b);
+void rr(t_stack **a, t_stack **b);
+
+void rra(t_stack **a);
+void rrb(t_stack **b);
+
+
+
+//utils
+t_stack	*ft_lstlast(t_stack *lst);
 #endif
