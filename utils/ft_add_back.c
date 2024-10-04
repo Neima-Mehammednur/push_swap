@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_add_back.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 15:32:47 by neali             #+#    #+#             */
-/*   Updated: 2024/10/03 15:34:57 by neali            ###   ########.fr       */
+/*   Created: 2024/10/04 12:03:07 by neali             #+#    #+#             */
+/*   Updated: 2024/10/04 12:03:33 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_lstsize(t_stack *lst)
+void	ft_add_back(t_stack **lst, t_stack *new)
 {
-    int len = 0;
-      
-    while(lst)
-    {
-        len++;
-        lst = lst->next; 
-    }
-    return(len);
+	t_stack	*last_node;
+
+	if (lst == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	last_node = ft_lstlast(*lst);
+	last_node->next = new;
 }

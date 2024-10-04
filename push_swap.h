@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/02 20:31:29 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/04 15:57:40 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_stack
 int check_syntax(char *str);
 int check_duplicate(t_stack *a);
 void free_stack(t_stack **lst);
-void free_error(t_stack **a);
+void ft_error();
+void	free_str(char **str);
 
 
 ////operations 
@@ -47,17 +48,19 @@ void rr(t_stack **a, t_stack **b);
 void rra(t_stack **a);
 void rrb(t_stack **b);
 
-void calculate_push_costs(t_stack *stack_a, t_stack *stack_b);
-void sort3(t_stack **a);
-void sort5(t_stack **a, t_stack **b);
-void big_sort(t_stack **a, t_stack **b);
+// void calculate_push_costs(t_stack *stack_a, t_stack *stack_b);
+// void sort3(t_stack **a);
+// void sort5(t_stack **a, t_stack **b);
+// void big_sort(t_stack **a, t_stack **b);
 
 
 //utils
 t_stack	*ft_lstlast(t_stack *lst);
 int ft_lstsize(t_stack *lst);
+void	ft_add_back(t_stack **lst, t_stack *new);
 char **ft_split(char const *s, char c);
-int ft_atoi(const char *str);
+int ft_atol(const char *str);
 int parse_input(t_stack **a, char **argv);
+
 
 #endif

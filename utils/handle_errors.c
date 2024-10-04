@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:35 by neali             #+#    #+#             */
-/*   Updated: 2024/10/02 17:58:35 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/04 15:55:46 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void free_stack(t_stack **stack)
     }
 }
 
-void free_error(t_stack **a)
+void ft_error()
 {
-    free_stack(a);
     write(1, "Error\n", 6);
     exit(1);
 }
+
