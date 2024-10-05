@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:55:28 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 16:35:30 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/04 18:47:48 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int ft_atol(char *str)
             sign = -sign;
         i++;
     }
-    while(str[i] >= '0' && str[i] <= '9')
+    while(str[i])
     {
-        res = res * 10 + (str[i] - 48);
+        if(str[i] >= '0' && str[i] <= '9')
+            res = res * 10 + (str[i] - 48);
+        else
+            ft_error();
         i++;
     }
     if((res * sign) > 2147483647 || (res * sign) < -2147483648)

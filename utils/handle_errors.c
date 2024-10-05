@@ -6,12 +6,12 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:35 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 15:55:46 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/04 18:40:59 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 int check_syntax(char *str)
 {
@@ -72,10 +72,21 @@ void free_stack(t_stack **stack)
         *stack = tmp;
     }
 }
+void	free_str(char **str)
+{
+	int	i;
 
+	i = 0;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 void ft_error()
 {
-    write(1, "Error\n", 6);
+    write(2, "Error\n", 6);
     exit(1);
 }
 

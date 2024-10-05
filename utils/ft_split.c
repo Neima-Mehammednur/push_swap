@@ -6,24 +6,11 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:53:13 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 15:55:13 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/04 18:44:13 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	free_str(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
+#include "../push_swap.h"
 
 static size_t	count_words(char const *s, char c)
 {
@@ -46,6 +33,7 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
+
 static int	create_word(char **array, int position, size_t buffer)
 {
 	int	i;
@@ -54,7 +42,7 @@ static int	create_word(char **array, int position, size_t buffer)
 	array[position] = malloc(buffer);
 	if (!array[position])
 	{
-		free_array(array);
+		free_str(array);
 		return (1);
 	}
 	return (0);
