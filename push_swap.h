@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/07 18:24:37 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:42:06 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,8 @@ void rr(t_stack **a, t_stack **b);
 
 void rra(t_stack **a);
 void rrb(t_stack **b);
+void rrr(t_stack **a, t_stack **b);
 
-
-
-// void calculate_push_costs(t_stack *stack_a, t_stack *stack_b);
-// void sort3(t_stack **a);
-// void sort5(t_stack **a, t_stack **b);
-// void big_sort(t_stack **a, t_stack **b);
 
 
 //utils
