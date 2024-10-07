@@ -6,11 +6,11 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:55:36 by neali             #+#    #+#             */
-/*   Updated: 2024/10/01 16:02:21 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:17:25 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static void ft_push(t_stack **src, t_stack **dest)
 {

@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 16:38:37 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:24:37 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void rr(t_stack **a, t_stack **b);
 void rra(t_stack **a);
 void rrb(t_stack **b);
 
+
+
 // void calculate_push_costs(t_stack *stack_a, t_stack *stack_b);
 // void sort3(t_stack **a);
 // void sort5(t_stack **a, t_stack **b);
@@ -60,7 +62,7 @@ int ft_lstsize(t_stack *lst);
 void	ft_add_back(t_stack **lst, t_stack *new);
 char **ft_split(char const *s, char c);
 int ft_atol(char *str);
-int parse_input(t_stack **a, char **argv);
-
-
+t_stack *ft_parse_quoted_input(char **argv);
+t_stack *ft_parse(int argc, char **argv);
+ 
 #endif

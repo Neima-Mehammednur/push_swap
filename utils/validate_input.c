@@ -1,5 +1,4 @@
-#include "push_swap.h"
-
+#include "../push_swap.h"
 
 
 // Function to validate the entire input array of strings

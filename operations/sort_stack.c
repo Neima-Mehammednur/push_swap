@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../push_swap.h"
 
 //Once you've parsed the input and created your initial stack, 
 // call the calculate_costs function to evaluate the costs for moving

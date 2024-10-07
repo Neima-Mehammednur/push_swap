@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:35 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 18:40:59 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:18:21 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int check_duplicate(t_stack *a)
         {
             if(a->nbr == tmp->nbr)
             { 
-                retunr (1);
+                return (1);
             }
             tmp = tmp->next;
         } 

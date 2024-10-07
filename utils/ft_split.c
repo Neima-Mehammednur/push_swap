@@ -6,11 +6,33 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:53:13 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 18:44:13 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:22:00 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	src_size;
+	size_t	i;
+
+	src_size = 0;
+	while (src[src_size])
+		src_size++;
+	if (!dst || !src)
+		return (src_size);
+	if (dstsize == 0)
+		return (src_size);
+	i = 0;
+	while (src[i] != '\0' && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_size);
+}
 
 static size_t	count_words(char const *s, char c)
 {
