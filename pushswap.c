@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/07 19:45:36 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/08 17:20:45 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int ft_min(t_stack *a)
 
     while(a)
     {
+       
         if(min > a->nbr)
         {
             min = a->nbr;
@@ -49,47 +50,62 @@ int ft_min(t_stack *a)
     }
     return(min);
 }
+
+
 t_stack target_block(t_stack *a, int num)
 {
     t_stack target;
+
+    if(ft_max(a) < num)
+        target.nbr = ft_min(a);
+    else if(ft_min(a) > num)
+        target.nbr = ft_max(a);  
+    else
+    {
+        int closest = ft_max(a) + 1;
+        while(a)
+        {
+            if(a->nbr > num && a->nbr < closest)
+            {
+                closest = a->nbr;
+            }
+        a = a->next;
+        }
+        target.nbr = closest; 
+    }
+    return(target); 
+}
+static void ft_median(t_stack *a)
+{
+    int size = ft_lstsize(a);
     
-  
-       if(ft_max(a) < num)
-       {
-            target.nbr = ft_min(a);
-       }
-       else if(ft_min(a) > num)
-       {
-            target.nbr = ft_max(a);
-       }
-    
-    //    else 
-    //    {
-            
-    //    }
-    
-    return(target);
+    int median = size / 2;
     
 }
 
-// t_stack target_block(t_stack *a, int num) {
-//     t_stack target;
-//     target.nbr = 0; // Initialize target
-//     int found = 0; // Flag to track if a greater number is found
+int find_index(t_stack *a, int num)
+{
+    int i = 0;
+    while(a)
+    {
+        if(num == a->nbr)
+        {
+            return(i);
+        }
+        i++;
+        a = a->next;
+    }
+    return(-1);
+}
 
-//     while (a) {
-//         if (a->nbr > num) {
-//             if (!found || a->nbr < target.nbr) {
-//                 target.nbr = a->nbr;
-//                 found = 1; // Mark that we found a greater number
-//             }
-//         }
-//         a = a->next;
-//     }
-
-//     // If found is still 0, you can handle accordingly
-//     return target;
-// }
+int calculate_move(t_stack *a, t_stack *b)
+{
+    //case 1 - if above median it returns index + 1 
+    while(a || b)
+    {
+         
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -108,12 +124,12 @@ int main(int argc, char **argv)
         printf("%li, ", temp->nbr);
         temp = temp->next;
     }
-    push_element_to_b(&a, &b);
+   // push_element_to_b(&a, &b);
     printf("\n---b---\n");
     temp = b;
     while (temp)
     {
-        printf("%li, ", temp->nbr);
+        printf("%li\n, ", temp->nbr);
         temp = temp->next;
     }
     // temp = a;
@@ -124,6 +140,10 @@ int main(int argc, char **argv)
     //     temp = temp->next;
     // }
     t_stack target;
-    target = target_block(a, 0);
+    target = target_block(a, 4);
+    printf("min = %li\n\n", a->nbr);
     printf("target = %li\n", target.nbr);
+    // ft_median(&a);
+    int index = find_index(a, 3);
+    printf("poition:%i\n", index);
 }
