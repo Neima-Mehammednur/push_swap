@@ -1,4 +1,4 @@
-NAME = pushswap
+NAME = push_swap
 NAME_BONUS = checker
 
 REM		=	rm -rf
@@ -20,7 +20,7 @@ SRCS =	\
 
 OBJS = $(SRCS:.c=.o)
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 
 all: $(NAME)

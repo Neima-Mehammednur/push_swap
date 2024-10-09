@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:55:28 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 18:47:48 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:29:07 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ t_stack *ft_stacknew(int nbr)
     return(new_node);
 }
 
+int check_empty(const char *str)
+{
+    int i = 0;
+
+    if (!str[i])
+        return (1);
+    
+    while (str[i]) 
+    {
+        if (!((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
+            return (0);
+        i++;
+    }
+    return (1);
+}
 
 t_stack *ft_parse_quoted_input(char **argv)
 {
@@ -74,19 +89,19 @@ t_stack *ft_parse_quoted_input(char **argv)
     
 }
 
+
 t_stack *ft_parse(int argc, char **argv)
 {
 
     t_stack *a;
     int i;
     int num;
-    
     a = NULL;
     i = 1;
 
     if(argc < 2)
         ft_error();
-    if(argc == 2)
+    if(argv[1][i] == '"')
     {
        a = ft_parse_quoted_input(argv);   
     }
@@ -94,6 +109,10 @@ t_stack *ft_parse(int argc, char **argv)
     {
         while(i < argc)
         {
+            if (check_empty(argv[i])) {
+                i++;
+                continue ;
+            }
             num = ft_atol(argv[i]);
             ft_add_back(&a, ft_stacknew(num));
             i++;

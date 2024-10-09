@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/08 17:20:45 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/09 12:56:19 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void push_element_to_b(t_stack **a, t_stack **b)
         pb(a, b);
         size--;
     }
+    
 }
 int ft_max(t_stack *a)
 {
@@ -32,6 +33,7 @@ int ft_max(t_stack *a)
         }
        a = a->next;
     }
+    printf("%i\n", max);
     return(max);
 }
 
@@ -48,6 +50,7 @@ int ft_min(t_stack *a)
         }
         a = a->next;
     }
+    printf("%i\n", min);
     return(min);
 }
 
@@ -73,22 +76,23 @@ t_stack target_block(t_stack *a, int num)
         }
         target.nbr = closest; 
     }
-    return(target); 
+    return(target);
 }
-static void ft_median(t_stack *a)
+int ft_median(t_stack *a)
 {
     int size = ft_lstsize(a);
     
     int median = size / 2;
+    return(median);
     
 }
 
-int find_index(t_stack *a, int num)
+int find_index(t_stack *a, int target)
 {
     int i = 0;
     while(a)
     {
-        if(num == a->nbr)
+        if(target == a->nbr)
         {
             return(i);
         }
@@ -98,13 +102,28 @@ int find_index(t_stack *a, int num)
     return(-1);
 }
 
-int calculate_move(t_stack *a, t_stack *b)
+int calculate_move(t_stack *a, t_stack *b, int target)
 {
-    //case 1 - if above median it returns index + 1 
+    int median_a = ft_median(a);
+    // int median_b = ft_median(b);
+    int target_index = find_index(a, target);
+    int count = 0;
+    
+    //case 1 - if above median it returns index + 1 (is for b and a without +1bnvch dsgchkdg
+    //case to if not above median = cost / count = len_a - target_index
     while(a || b)
     {
-         
+        while(a)
+        {
+            if(target_index <= median_a)
+            {
+                count = target_index + 1;
+                return(count);           
+            }
+            a = a->next;
+        }
     }
+    return (count);
 }
 
 int main(int argc, char **argv)
@@ -124,26 +143,27 @@ int main(int argc, char **argv)
         printf("%li, ", temp->nbr);
         temp = temp->next;
     }
-   // push_element_to_b(&a, &b);
+    push_element_to_b(&a, &b);
     printf("\n---b---\n");
     temp = b;
     while (temp)
     {
-        printf("%li\n, ", temp->nbr);
+        printf("%li, ", temp->nbr);
         temp = temp->next;
     }
-    // temp = a;
-    // printf("\n---a---\n");
-    // while (temp)
-    // {
-    //     printf("%li, ", temp->nbr);
-    //     temp = temp->next;
-    // }
+    temp = a;
+    printf("\n---a---\n");
+    while (temp)
+    {
+        printf("%li, ", temp->nbr);
+        temp = temp->next;
+    }
     t_stack target;
-    target = target_block(a, 4);
-    printf("min = %li\n\n", a->nbr);
-    printf("target = %li\n", target.nbr);
+    printf("Num = %li\n", b->next->next->nbr);
+    target = target_block(a, b->next->next->nbr);
+    // printf("min = %li\n\n", a->nbr);
+    printf("\ntarget = %li\n", target.nbr);
     // ft_median(&a);
-    int index = find_index(a, 3);
-    printf("poition:%i\n", index);
+    // int index = find_index(a, 3);
+    // printf("poition:%i\n", index);
 }
