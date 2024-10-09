@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/09 15:37:17 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/09 17:40:10 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int ft_max(t_stack *a)
         }
        a = a->next;
     }
-    printf("%i\n", max);
+    // printf("%i\n", max);
     return(max);
 }
 
@@ -53,7 +53,7 @@ int ft_min(t_stack *a)
         }
         a = a->next;
     }
-    printf("%i\n", min);
+    // printf("%i\n", min);
     return(min);
 }
 
@@ -63,9 +63,7 @@ t_stack target_block(t_stack *a, int num)
     t_stack target;
 
     if(ft_max(a) < num)
-        target.nbr = ft_min(a);
-    else if(ft_min(a) > num)
-        target.nbr = ft_max(a);  
+        target.nbr = ft_min(a);  
     else
     {
         int closest = ft_max(a) + 1;
@@ -97,63 +95,35 @@ int find_index(t_stack *a, int target)
     }
     return(-1);
 }
-void ft_median(t_stack *stack, int target)
+bool ft_median(t_stack *stack, int target)
 {
-    if(!stack)
-        return;
     int size = ft_lstsize(stack);
     int median = size / 2;
     int target_index = find_index(stack, target);
     
     if(target_index <= median)
-        stack->is_above_median = true;
+        return (true);
+        // stack->is_above_median = true;
     else
-        stack->is_above_median = false; 
-   // return(a->is_above_median);
+        return (false);
+        // stack->is_above_median = false; 
+//    return(stack->is_above_median);
 }
-int calculate_move(t_stack *a, t_stack *b, int target)
-{
-    int size_a = ft_lstsize(a);
-    int size_b = ft_lstsize(b);
-    int target_index_a = find_index(a, target);
-    int target_index_b = find_index(b, target);
+int calculate_move(t_stack *a, t_stack *b, int num)
+{   
+    t_stack target = target_block(a, num); 
+    int num_index = find_index(b, num);
+    int target_index = find_index(a, target.nbr);
     int count = 0;
-    if(!b)
-        return 0;
-    if(!a)
-        return 0;
-    while(a || b)
-    {
-        if(a)
-        {
-            if(a->is_above_median)
-            {
-                a->count_move = target_index_a;
-                count = a->count_move;
-            }
-            else
-            {
-                a->count_move = size_a - target_index_a;
-                count = a->count_move;
-            }
-            a = a->next;
-        }
-        if(b)
-        {
-            if(b->is_above_median)
-            {
-                b->count_move = target_index_b + 1;
-                count = b->count_move;
-            }
-            else
-            {
-                b->count_move = size_b - target_index_b + 1;
-                count = b->count_move;
-            }
-            b = b->next;
-        }
-    }
-    return (count); //must return both moves counts
+    if (ft_median(a, target.nbr)) // ra
+        count += target_index;
+    else // rra
+        count += ft_lstsize(a) - target_index;
+    if(ft_median(b, num)) // rb
+        count += num_index + 1;
+    else // rrb
+        count += ft_lstsize(b) - num_index + 1;
+    return (count); 
 }
 
 int main(int argc, char **argv)
@@ -197,27 +167,8 @@ int main(int argc, char **argv)
     // ft_median(&a);
     // int index = find_index(a, 3);
     // printf("poition:%i\n", index);
-    int calc_move = calculate_move(a, b, b->nbr);
+    int calc_move = calculate_move(a, b, b->next->nbr);
+    t_stack *get_cheapest_block(stack *a, stack *b);
     printf("current_a_value %li\n", b->nbr);
     printf("calc move: %i\n", calc_move);
 }
-
-
-
-
-
-
-
-    // //case 1 - if above median it returns index + 1 (is for b and a without +1bnvch dsgchkdg
-    // //case to if not above median = cost / count = len_a - target_index
-  
-    //     while(a)
-    //     {
-    //         if(target_index <= median_a)
-    //         {
-    //             a->is_above_median = true;
-    //             a->count_move = target_index + 1;
-    //             return(a->count_move);           
-    //         }
-    //         a = a->next;
-    //     }
