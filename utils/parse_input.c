@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:55:28 by neali             #+#    #+#             */
-/*   Updated: 2024/10/09 13:29:07 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:42:16 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_stack *ft_parse(int argc, char **argv)
 
     if(argc < 2)
         ft_error();
-    if(argv[1][i] == '"')
+    if(argc == 2)
     {
        a = ft_parse_quoted_input(argv);   
     }

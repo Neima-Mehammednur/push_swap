@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/09 13:27:32 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/09 14:40:47 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct s_stack
 {
 	long			nbr;
+	int 			count_move;
+	bool 			is_above_median;
 	struct s_stack	*next;
 }	t_stack;
 

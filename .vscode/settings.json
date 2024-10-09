@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "push_swap.h": "c"
+        "push_swap.h": "c",
+        "__bit_reference": "c",
+        "algorithm": "c",
+        "bitset": "c",
+        "chrono": "c",
+        "unordered_map": "c",
+        "ratio": "c"
     }
 }

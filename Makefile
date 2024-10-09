@@ -20,7 +20,7 @@ SRCS =	\
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 
 all: $(NAME)
