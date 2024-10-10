@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/09 17:40:10 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/10 15:58:51 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int ft_max(t_stack *a)
         }
        a = a->next;
     }
-    // printf("%i\n", max);
     return(max);
 }
 
@@ -53,7 +52,6 @@ int ft_min(t_stack *a)
         }
         a = a->next;
     }
-    // printf("%i\n", min);
     return(min);
 }
 
@@ -103,11 +101,9 @@ bool ft_median(t_stack *stack, int target)
     
     if(target_index <= median)
         return (true);
-        // stack->is_above_median = true;
+       
     else
         return (false);
-        // stack->is_above_median = false; 
-//    return(stack->is_above_median);
 }
 int calculate_move(t_stack *a, t_stack *b, int num)
 {   
@@ -125,6 +121,27 @@ int calculate_move(t_stack *a, t_stack *b, int num)
         count += ft_lstsize(b) - num_index + 1;
     return (count); 
 }
+
+
+// int get_cheapest_block(t_stack *a, t_stack *b)
+t_stack get_cheapest_block(t_stack *a, t_stack *b)
+{
+    t_stack cheapest_block;
+    int cheapest;
+    
+    cheapest = calculate_move(a, b, b->nbr);
+    while(b)
+    {
+        if(cheapest > calculate_move(a, b, b->nbr))
+        {
+            cheapest = calculate_move(a, b, b->nbr);
+            cheapest_block.nbr = b->nbr;
+        }
+        b = b->next;
+    }
+    return(cheapest_block);
+}
+
 
 int main(int argc, char **argv)
 {
@@ -168,7 +185,10 @@ int main(int argc, char **argv)
     // int index = find_index(a, 3);
     // printf("poition:%i\n", index);
     int calc_move = calculate_move(a, b, b->next->nbr);
-    t_stack *get_cheapest_block(stack *a, stack *b);
     printf("current_a_value %li\n", b->nbr);
     printf("calc move: %i\n", calc_move);
+   t_stack cheapest_block = get_cheapest_block(a, b);
+//    push_cheapest_element(a, b, cheapest_element);
+   printf("cheapest: %li\n", cheapest_block.nbr);
+    
 }
