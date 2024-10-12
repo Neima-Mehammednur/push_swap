@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/10 19:05:22 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/12 14:52:40 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num)
     t_stack target = target_block(*a, cheapest_num); 
     int num_index = find_index(*b, cheapest_num);
     int target_index = find_index(*a, target.nbr);
-    printf("target = %i | index_t = %i | index_num = %i\n", target.nbr, target_index, num_index);
+    printf("target = %li | index_t = %i | index_num = %i\n", target.nbr, target_index, num_index);
 
     if(ft_median(*a, target.nbr))
     {
@@ -181,23 +181,37 @@ void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num)
         }
         
     }
-    printf("--b--\n");
-    t_stack *temp = *b;
-    while (temp)
-    {
-        printf("%li, ", temp->nbr);
-        temp = temp->next;
-    }
-    printf("--a--\n");
-    t_stack *temp1 = *a;
-    while (temp1)
-    {
-        printf("%li, ", temp1->nbr);
-        temp1 = temp1->next;
-    }
+    // printf("--b--\n");
+    // t_stack *temp = *b;
+    // while (temp)
+    // {
+    //     printf("%li, ", temp->nbr);
+    //     temp = temp->next;
+    // }
+    // printf("--a--\n");
+    // t_stack *temp1 = *a;
+    // while (temp1)
+    // {
+    //     printf("%li, ", temp1->nbr);
+    //     temp1 = temp1->next;
+    // }
     pa(a, b);
 }
-
+void sort_small(t_stack **a)
+{
+    if((*a)->nbr > (*a)->next->nbr)
+    {
+        ft_sa(a);
+    }
+    if((*a)->next->nbr > (*a)->next->next->nbr)
+    {
+        ft_sa(a);
+    }
+    if((*a)->nbr > (*a)->next->next->nbr)
+    {
+        ft_sa(a);
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -217,6 +231,7 @@ int main(int argc, char **argv)
         temp = temp->next;
     }
     push_element_to_b(&a, &b);
+    sort_small(&a);//
     printf("\n---stack_a after push---\n");
     temp = a;
     while (temp)
@@ -233,15 +248,14 @@ int main(int argc, char **argv)
         temp = temp->next;
     }
     
-//    push_cheapest_element(a, b, cheapest_element);
-//    printf("\ncheapest: %li\n", cheapest_block.nbr);
    t_stack cheapest_block = get_cheapest_block(a, b);
    printf("cheapest = %li\n", cheapest_block.nbr);
-   push_cheapest_num(&a, &b, cheapest_block.nbr);
+  push_cheapest_num(&a, &b, cheapest_block.nbr);
    cheapest_block = get_cheapest_block(a, b);
    push_cheapest_num(&a, &b, cheapest_block.nbr);
    cheapest_block = get_cheapest_block(a, b);
    push_cheapest_num(&a, &b, cheapest_block.nbr);
+
     printf("\n---stack_a after pushcheapest---\n");
     temp = a;
     while (temp)
