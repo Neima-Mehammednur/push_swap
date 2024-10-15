@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/10 15:15:13 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/15 16:37:16 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@
 
 typedef struct s_stack
 {
-	long			nbr;
+	int			nbr;
 	struct s_stack	*next;
 }	t_stack;
 
+// typedef struct info
+// {
+// 	int		len;
+// }		t_info;
 //handle errors
 int check_syntax(char *str);
 int check_duplicate(t_stack *a);
@@ -37,9 +41,9 @@ void	free_str(char **str);
 
 
 ////operations 
-void ft_sa(t_stack **a);
-void ft_sb(t_stack **b);
-void ft_ss(t_stack **a, t_stack **b);
+void sa(t_stack **a);
+void sb(t_stack **b);
+void ss(t_stack **a, t_stack **b);
 
 void pa(t_stack **a, t_stack **b);
 void pb(t_stack **a, t_stack **b);
