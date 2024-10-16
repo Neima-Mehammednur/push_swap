@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/15 17:22:28 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/16 15:29:20 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,21 @@ bool ft_median(t_stack *stack, int target)
     else
         return (false);
 }
+// void rotate_both(t_stack **a, t_stack **b, int num)
+// {
+//     t_stack target = target_block(a, num); 
+//     int num_index = find_index(b, num);
+//     int target_index = find_index(a, target.nbr);
+//     int i = 0;
+//     while(i < ft_lstsize(a))
+//     {
+//         if(target_index != 0 || num_index != 0)
+//         {
+//             rr(a, b);
+//         }
+//         i++;
+//     }
+// }
 int calculate_move(t_stack *a, t_stack *b, int num)
 {   
     t_stack target = target_block(a, num); 
@@ -153,57 +168,140 @@ t_stack get_cheapest_block(t_stack *a, t_stack *b)
     }
     return(cheapest_block);
 }
+// void flag_rr(t_stack **a, t_stack **b, int cheapest_num)
+// {
+//     t_stack target = target_block(a, cheapest_num); 
+//     int num_index = find_index(b, cheapest_num);
+//     int target_index = find_index(a, target.nbr);
+//     int flag = 0;
+
+//     if(ft_median(a, target.nbr))//a
+//     {
+//         flag = flag + 1;
+//     }
+//     if(ft_median(b, cheapest_num)) //b
+//     {
+//         flag = flag - 1;
+//     }
+//     if(flag == 0 && (num_index != 0 || target_index != 0)) //a & b 
+//     {
+//         rr(a,b);
+//     }
+    
+// }
 
 void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num)
 {
     t_stack target = target_block(*a, cheapest_num); 
     int num_index = find_index(*b, cheapest_num);
     int target_index = find_index(*a, target.nbr);
-    // printf("target = %li | index_t = %i | index_num = %i\n", target.nbr, target_index, num_index);
-
-    if(num_index == -1 || target_index == -1)
+    
+    while((num_index > 0 || target_index > 0))
     {
-        printf("Error: cannot find index");
-        return;
-    }
-        
-    if(ft_median(*a, target.nbr))
-    {
-        while(target_index > 0)
+        if(ft_median(*a, target.nbr) && ft_median(*b, cheapest_num) && (target_index != 0 && num_index != 0))
+        {
+            rr(a, b);
+            target_index--;
+            num_index--;
+        }
+        else if(ft_median(*a, target.nbr) && target_index != 0)
         {
             ra(a);
             target_index--;
         }
-    }
-    else
-    {
-        while(target_index < ft_lstsize(*a))
-        {
-            rra(a);
-            target_index++;
-        }
-    }
-    //for b
-    if(ft_median(*b, cheapest_num))
-    {
-        while(num_index > 0)
+        else if(ft_median(*b, cheapest_num) && num_index != 0)
         {
             rb(b);
             num_index--;
         }
+        else
+            break ;
     }
-    else
+    while((target_index < ft_lstsize(*a) || num_index < ft_lstsize(*b)) && !ft_median(*a, target.nbr) && !ft_median(*b, cheapest_num))
     {
-       while(num_index < ft_lstsize(*b))
+        if(!ft_median(*a, target.nbr) && !ft_median(*b, cheapest_num))
+        {
+            rrr(a, b);
+            target_index++;
+            num_index++;
+        }
+        else if(!ft_median(*a, target.nbr) && target_index < ft_lstsize(*a))
+        {
+            rra(a);
+            target_index++;
+        }
+        else if(!ft_median(*b, cheapest_num) && num_index < ft_lstsize(*b))
         {
             rrb(b);
             num_index++;
         }
-        
+        else
+            break ;
     }
     pa(a, b);
+    // if(ft_median(*a, target.nbr) && ft_median(*b, cheapest_num))
+    // {
+    //     flag_rr(a, b, cheapest_num);
+    // }
+    // else if(ft_median(*a, target.nbr))
+    // {
+    //     while(target_index > 0)
+    //     {
+    //         ra(a);
+    //         target_index--;
+    //     }
+    // }
+    // else
+    // {
+    //     while(target_index < ft_lstsize(*a))
+    //     {
+    //         rra(a);
+    //         target_index++;
+    //     }
+    // }
+    // //for b
+    // if(ft_median(*b, cheapest_num))
+    // {
+    //     while(num_index > 0)
+    //     {
+    //         rb(b);
+    //         num_index--;
+    //     }
+    // }
+    // else
+    // {
+    //    while(num_index < ft_lstsize(*b))
+    //     {
+    //         rrb(b);
+    //         num_index++;
+    //     }
+        
+    // }
+    
 
 }
+
+// void flag_rr(t_stack **a, t_stack **b, int cheapest_num)
+// {
+//     t_stack target = target_block(a, cheapest_num); 
+//     int num_index = find_index(b, cheapest_num);
+//     int target_index = find_index(a, target.nbr);
+//     int flag = 0;
+
+//     if(ft_median(a, target.nbr))//a
+//     {
+//         flag = flag + 1;
+//     }
+//     if(ft_median(b, cheapest_num)) //b
+//     {
+//         flag = flag - 1;
+//     }
+//     if(flag == 0 && (num_index != 0 || target_index != 0)) //a & b 
+//     {
+//         rr(a,b);
+//     }
+    
+// }
 void sort_everything(t_stack **a)
 {
     int min = ft_min(*a);
@@ -218,7 +316,6 @@ void sort_everything(t_stack **a)
         i++;
     }
 }
-
 
 void sort_small(t_stack **a)
 {
@@ -251,14 +348,14 @@ int main(int argc, char **argv)
 
     t_stack cheapest_block;
     int i = 0;
-    int k = ft_lstsize(b);
-    while (i < k)
+    int size = ft_lstsize(b);
+    while (i < size)
     {
             cheapest_block = get_cheapest_block(a, b);
             push_cheapest_num(&a, &b, cheapest_block.nbr);
             i++;
     }
-    // sort_everything(&a);
+    sort_everything(&a);
 }
 
 
@@ -292,17 +389,6 @@ int main(int argc, char **argv)
 
 
 
-    //t_stack target;
-   // printf("Num = %li\n", b->next->next->nbr);
-    //target = target_block(a, b->next->next->nbr);
-    // printf("min = %li\n\n", a->nbr);
-  //  printf("\ntarget = %li\n", target.nbr);
-    // ft_median(&a);
-    // int index = find_index(a, 3);
-    // printf("poition:%i\n", index);
-    // int calc_move = calculate_move(a, b, b->next->nbr);
-    // printf("current_a_value %li\n", b->nbr);
-    // printf("calc move: %i\n", calc_move);
 
 // int calculate_move(t_stack *a, t_stack *b, int num)
 // {   
