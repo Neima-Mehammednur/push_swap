@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/15 16:37:16 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/16 17:16:32 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int check_duplicate(t_stack *a);
 void free_stack(t_stack **lst);
 void ft_error();
 void	free_str(char **str);
-
+int is_sorted(t_stack *stack);
 
 ////operations 
 void sa(t_stack **a);
