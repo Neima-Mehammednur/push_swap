@@ -6,11 +6,12 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/17 14:59:04 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/17 17:15:31 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 void print_stack(t_stack *stack) {
     while (stack) {
         printf("%d ", stack->nbr);
@@ -87,7 +88,9 @@ t_stack target_block(t_stack *a, int num)
 
 int find_index(t_stack *a, int num)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     while(a)
     {
         if(num == a->nbr)
@@ -111,38 +114,14 @@ bool ft_median(t_stack *stack, int target)
     else
         return (false);
 }
-// void rotate_both(t_stack **a, t_stack **b, int num)
-// {
-//     t_stack target = target_block(a, num); 
-//     int num_index = find_index(b, num);
-//     int target_index = find_index(a, target.nbr);
-//     int i = 0;
-//     while(i < ft_lstsize(a))
-//     {
-//         if(target_index != 0 || num_index != 0)
-//         {
-//             rr(a, b);
-//         }
-//         i++;
-//     }
-// }
+
 int calculate_move(t_stack *a, t_stack *b, int num)
 {   
     t_stack target = target_block(a, num); 
     int num_index = find_index(b, num);
     int target_index = find_index(a, target.nbr);
-    int count_moves = 0;
+    int count_moves = INT_MIN;
 
-    // if(ft_median(a, target.nbr) && ft_median(b, num)) //rr
-    // {
-    //     count_moves += target_index;
-    //     count_moves += (num_index + 1);
-    // }
-    // else //rrr
-    // {
-    //     count_moves += (ft_lstsize(a) - target_index);
-    //     count_moves += (ft_lstsize(b) - num_index + 1);
-    // }
     if (ft_median(a, target.nbr)) // ra
         count_moves += target_index;
     else // rra
@@ -161,7 +140,6 @@ t_stack get_cheapest_block(t_stack *a, t_stack *b)
     
     cheapest_block.nbr = -1;
     cheapest_move = INT_MAX;
-    
     while(b)
     {
         int current_move = calculate_move(a, b, b->nbr);
@@ -214,155 +192,6 @@ void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num) {
     pa(a, b);
 }
 
-// void flag_rr(t_stack **a, t_stack **b, int cheapest_num)
-// {
-//     t_stack target = target_block(a, cheapest_num); 
-//     int num_index = find_index(b, cheapest_num);
-//     int target_index = find_index(a, target.nbr);
-//     int flag = 0;
-
-//     if(ft_median(a, target.nbr))//a
-//     {
-//         flag = flag + 1;
-//     }
-//     if(ft_median(b, cheapest_num)) //b
-//     {
-//         flag = flag - 1;
-//     }
-//     if(flag == 0 && (num_index != 0 || target_index != 0)) //a & b 
-//     {
-//         rr(a,b);
-//     }
-    
-// }
-
-// void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num)
-// {
-//     t_stack target = target_block(*a, cheapest_num); 
-//     int num_index = find_index(*b, cheapest_num);
-//     int target_index = find_index(*a, target.nbr);
-    
-//     while((num_index > 0 || target_index > 0))
-//     {
-//         if(ft_median(*a, target.nbr) && ft_median(*b, cheapest_num) && (target_index != 0 && num_index != 0))
-//         {
-//             rr(a, b);
-//             target_index--;
-//             num_index--;
-//         }
-//         else if(ft_median(*a, target.nbr) && target_index != 0)
-//         {
-//             ra(a);
-//             target_index--;
-//         }
-//         else if(ft_median(*b, cheapest_num) && num_index != 0)
-//         {
-//             rb(b);
-//             num_index--;
-//         }
-//         else
-//             break ;
-//     }
-//     while((target_index < ft_lstsize(*a) || num_index < ft_lstsize(*b)))
-//     {
-//         if(!ft_median(*a, target.nbr) && !ft_median(*b, cheapest_num))
-//         {
-//             rrr(a, b);
-//             target_index++;
-//             num_index++;
-//         }
-//         else if(!ft_median(*a, target.nbr) && target_index < ft_lstsize(*a))
-//         {
-//             rra(a);
-//             target_index++;
-//         }
-//         else if(!ft_median(*b, cheapest_num) && num_index < ft_lstsize(*b))
-//         {
-//             rrb(b);
-//             num_index++;
-//         }
-//         else
-//             break ;
-//     }
-//     pa(a, b);
-//     // if(ft_median(*a, target.nbr) && ft_median(*b, cheapest_num))
-//     // {
-//     //     flag_rr(a, b, cheapest_num);
-//     // }
-//     // else if(ft_median(*a, target.nbr))
-//     // {
-//     //     while(target_index > 0)
-//     //     {
-//     //         ra(a);
-//     //         target_index--;
-//     //     }
-//     // }
-//     // else
-//     // {
-//     //     while(target_index < ft_lstsize(*a))
-//     //     {
-//     //         rra(a);
-//     //         target_index++;
-//     //     }
-//     // }
-//     // //for b
-//     // if(ft_median(*b, cheapest_num))
-//     // {
-//     //     while(num_index > 0)
-//     //     {
-//     //         rb(b);
-//     //         num_index--;
-//     //     }
-//     // }
-//     // else
-//     // {
-//     //    while(num_index < ft_lstsize(*b))
-//     //     {
-//     //         rrb(b);
-//     //         num_index++;
-//     //     }
-        
-//     // }
-    
-
-// }
-
-// void flag_rr(t_stack **a, t_stack **b, int cheapest_num)
-// {
-//     t_stack target = target_block(a, cheapest_num); 
-//     int num_index = find_index(b, cheapest_num);
-//     int target_index = find_index(a, target.nbr);
-//     int flag = 0;
-
-//     if(ft_median(a, target.nbr))//a
-//     {
-//         flag = flag + 1;
-//     }
-//     if(ft_median(b, cheapest_num)) //b
-//     {
-//         flag = flag - 1;
-//     }
-//     if(flag == 0 && (num_index != 0 || target_index != 0)) //a & b 
-//     {
-//         rr(a,b);
-//     }
-    
-// }
-
-// void sort_everything(t_stack **a)
-// {
-//     int min = ft_min(*a);
-//     int i = 0;
-//     int len = ft_lstsize(*a);
-//     while(i < len)
-//     {
-//         if(find_index(*a, min) > 0)
-//         {
-//             ra(a);
-//         }
-//         i++;
-//     }
-// }
 void sort_everything(t_stack **a)
 {
     int min_index = find_index(*a, ft_min(*a));
@@ -412,6 +241,7 @@ int main(int argc, char **argv)
 {
     t_stack *a;
     t_stack *b;
+    t_stack cheapest_block;
 
     a = NULL;
     b = NULL;
@@ -420,8 +250,6 @@ int main(int argc, char **argv)
         return 0;
     push_element_to_b(&a, &b);
     sort_small(&a);
-
-    t_stack cheapest_block;
     int i = 0;
     int size = ft_lstsize(b);
     while (i < size)
@@ -431,9 +259,7 @@ int main(int argc, char **argv)
             i++;
     }
     sort_everything(&a);
-    
-    //print sorted num
-    // print_stack(a);
+    print_stack(a);
     free_stack(&a);
     free_stack(&b);
 }
