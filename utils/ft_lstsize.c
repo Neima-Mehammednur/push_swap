@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:32:47 by neali             #+#    #+#             */
-/*   Updated: 2024/10/04 16:36:36 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/26 17:56:10 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int ft_lstsize(t_stack *lst)
 {
     int len = 0;
-      
-    while(lst)
+    t_stack *tmp = lst;
+    while(tmp)
     {
         len++;
-        lst = lst->next; 
+        tmp = tmp->next; 
     }
     return(len);
 }

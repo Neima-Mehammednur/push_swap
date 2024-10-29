@@ -15,6 +15,8 @@ SRCS =	\
     utils/ft_lstlast.c \
     utils/ft_split.c \
     utils/parse_input.c \
+    sorting/sorting_utils_1.c \
+    sorting/sorting_utils_2.c \
     pushswap.c \
 
 

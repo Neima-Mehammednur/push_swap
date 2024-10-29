@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:36:24 by neali             #+#    #+#             */
-/*   Updated: 2024/10/16 17:16:32 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/29 18:54:43 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ void rra(t_stack **a);
 void rrb(t_stack **b);
 void rrr(t_stack **a, t_stack **b);
 
+//sorting utils
+void push_element_to_b(t_stack **a, t_stack **b);
+int ft_max(t_stack *a);
+int ft_min(t_stack *a);
+int find_index(t_stack *a, int num);
+bool ft_median(t_stack *stack, int target);
+t_stack target_block(t_stack *a, int num);
+int calculate_move(t_stack *a, t_stack *b, int num);
+t_stack get_cheapest_block(t_stack *a, t_stack *b);
+void rotate_a_b (t_stack **a, t_stack **b, int cheapest_num, int target_nbr, int target_index, int num_index);
+void reverse_rotate_a_b (t_stack **a, t_stack **b, int cheapest_num, int target_nbr, int target_index, int num_index);
 
 
 //utils

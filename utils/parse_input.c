@@ -6,7 +6,7 @@
 /*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:55:28 by neali             #+#    #+#             */
-/*   Updated: 2024/10/17 14:33:26 by neali            ###   ########.fr       */
+/*   Updated: 2024/10/29 18:22:03 by neali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ t_stack *ft_parse_quoted_input(char **argv)
         ft_add_back(&a, ft_stacknew(num));
         i++;
     }
-    // free_str(tmp);
-    // free(tmp);
+    free_str(tmp);
+    free(tmp);
     return(a);
     
 }
@@ -101,6 +101,7 @@ t_stack *ft_parse(int argc, char **argv)
 
     if(argc < 2)
         ft_error();
+  
     if(argc == 2)
     {
        a = ft_parse_quoted_input(argv);   
@@ -113,10 +114,10 @@ t_stack *ft_parse(int argc, char **argv)
                 i++;
                 continue ;
             }
-            if(check_duplicate(a))
-            {
+            if (check_duplicate(a)) {
+                free_stack(&a); 
                 ft_error();
-            }
+            }   
             num = ft_atol(argv[i]);
             ft_add_back(&a, ft_stacknew(num));
             i++;
