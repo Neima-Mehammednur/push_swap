@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: neali <neali@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 17:33:12 by neali             #+#    #+#             */
-/*   Updated: 2024/10/17 17:15:31 by neali            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 void print_stack(t_stack *stack) {
@@ -33,14 +21,15 @@ int ft_max(t_stack *a)
 {
     if(!a)
         return -1;
+    t_stack *tmp = a;
     int max = INT_MIN;
-    while(a)
+    while(tmp)
     {
-        if(max < a->nbr)
+        if(max < tmp->nbr)
         {
-            max = a->nbr;
+            max = tmp->nbr;
         }
-       a = a->next;
+       tmp = tmp->next;
     }
     return(max);
 }
@@ -49,15 +38,16 @@ int ft_min(t_stack *a)
 {
     if(!a)
         return -1;
-    int min  = a->nbr;
-    while(a)
+    t_stack *tmp = a;
+    int min  = tmp->nbr;
+    while(tmp)
     {
        
-        if(min > a->nbr)
+        if(min > tmp->nbr)
         {
-            min = a->nbr;
+            min = tmp->nbr;
         }
-        a = a->next;
+        tmp = tmp->next;
     }
     return(min);
 }
@@ -67,18 +57,19 @@ t_stack target_block(t_stack *a, int num)
 {
     t_stack target;
 
+    t_stack *tmp = a;
     if(ft_max(a) < num)
         target.nbr = ft_min(a);  
     else
     {
         int closest = ft_max(a) + 1;
-        while(a)
+        while(tmp)
         {
-            if(a->nbr > num && a->nbr < closest)
+            if(tmp->nbr > num && tmp->nbr < closest)
             {
-                closest = a->nbr;
+                closest = tmp->nbr;
             }
-            a = a->next;
+            tmp = tmp->next;
         }
         target.nbr = closest; 
     }
@@ -91,14 +82,16 @@ int find_index(t_stack *a, int num)
     int i;
     
     i = 0;
-    while(a)
+    t_stack *tmp = a;
+
+    while(tmp)
     {
-        if(num == a->nbr)
+        if(num == tmp->nbr)
         {
             return(i);
         }
         i++;
-        a = a->next;
+        tmp = tmp->next;
     }
     return(-1);
 }
@@ -115,22 +108,27 @@ bool ft_median(t_stack *stack, int target)
         return (false);
 }
 
-int calculate_move(t_stack *a, t_stack *b, int num)
-{   
-    t_stack target = target_block(a, num); 
+int calculate_move(t_stack *a, t_stack *b, int num) {
+  
     int num_index = find_index(b, num);
+    t_stack target = target_block(a, num);
     int target_index = find_index(a, target.nbr);
-    int count_moves = INT_MIN;
+    
+    int count_moves = 0;
+    int size_a = ft_lstsize(a);
+    
+    if (ft_median(a, target.nbr))
+        count_moves += target_index; // ra
+    else 
+        count_moves += (size_a - target_index); // rra
 
-    if (ft_median(a, target.nbr)) // ra
-        count_moves += target_index;
-    else // rra
-        count_moves += (ft_lstsize(a) - target_index);
-    if(ft_median(b, num)) // rb
-        count_moves += (num_index + 1);
-    else // rrb
-        count_moves += (ft_lstsize(b) - num_index + 1);
-    return (count_moves); 
+    int size_b = ft_lstsize(b);
+    
+    if (ft_median(b, num)) 
+        count_moves += (num_index + 1); // rb
+    else 
+        count_moves += (size_b - num_index + 1); // rrb
+    return count_moves; 
 }
 
 t_stack get_cheapest_block(t_stack *a, t_stack *b)
@@ -140,23 +138,28 @@ t_stack get_cheapest_block(t_stack *a, t_stack *b)
     
     cheapest_block.nbr = -1;
     cheapest_move = INT_MAX;
-    while(b)
+    t_stack *tmp = b;
+    while(tmp)
     {
-        int current_move = calculate_move(a, b, b->nbr);
+       int current_move = calculate_move(a, b, tmp->nbr);
         if(cheapest_move > current_move)
         {
             cheapest_move = current_move;
-            cheapest_block.nbr = b->nbr;
+            cheapest_block.nbr = tmp->nbr;
         }
-        b = b->next;
+        tmp = tmp->next;
     }
     return(cheapest_block);
 }
+
+
 void push_cheapest_num(t_stack **a, t_stack **b, int cheapest_num) {
-    t_stack target = target_block(*a, cheapest_num); 
+    t_stack target = target_block(*a, cheapest_num);
+
     int num_index = find_index(*b, cheapest_num);
+   
     int target_index = find_index(*a, target.nbr);
-    
+   
     while((num_index > 0 || target_index > 0)) {
         if(ft_median(*a, target.nbr) && ft_median(*b, cheapest_num) && (target_index != 0 && num_index != 0)) {
             rr(a, b);
@@ -197,13 +200,10 @@ void sort_everything(t_stack **a)
     int min_index = find_index(*a, ft_min(*a));
     int len = ft_lstsize(*a);
     
-    if (min_index == -1) {
+    if (min_index == -1)
         return; 
-    }
-
-    if (min_index == 0) {
+    if (min_index == 0)
         return;
-    }
     if (min_index <= len / 2) {
         while (min_index > 0) {
             ra(a);
@@ -259,57 +259,7 @@ int main(int argc, char **argv)
             i++;
     }
     sort_everything(&a);
-    print_stack(a);
+    //print_stack(a);
     free_stack(&a);
     free_stack(&b);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// int calculate_move(t_stack *a, t_stack *b, int num)
-// {   
-//     t_stack target = target_block(a, num); 
-//     int num_index = find_index(b, num);
-//     int target_index = find_index(a, target.nbr);
-//     int count = 0;
-    
-//     if (ft_median(a, target.nbr)) // ra
-//         count += target_index;
-//     else // rra
-//         count += ft_lstsize(a) - target_index;
-//     if(ft_median(b, num)) // rb
-//         count += num_index + 1;
-//     else // rrb
-//         count += ft_lstsize(b) - num_index + 1;
-//     return (count); 
-// }
